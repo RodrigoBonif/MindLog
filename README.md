@@ -3,7 +3,7 @@ MindLog é uma plataforma web de organização visual e priorização inteligent
 
 Inspirado na dinâmica visual do Trello, o MindLog utiliza um sistema baseado em quadros e colunas (Kanban), permitindo que usuários organizem suas tarefas em cards dinâmicos, com foco em priorização temporal e gestão visual de urgência.
 
-🎯 Proposta do Projeto
+### 🎯 Proposta do Projeto
 
 O objetivo do MindLog é ir além de um simples gerenciador de tarefas, oferecendo:
 
@@ -19,7 +19,7 @@ Estrutura escalável para múltiplos quadros
 
 A plataforma combina clareza visual com inteligência temporal, permitindo que o usuário identifique rapidamente quais tarefas exigem atenção imediata.
 
-🚨 Sistema Inteligente de Prioridade Visual
+### 🚨 Sistema Inteligente de Prioridade Visual
 
 O diferencial central do MindLog é seu sistema automático de sinalização por prazo, que utiliza códigos visuais para indicar urgência:
 
@@ -31,7 +31,7 @@ O diferencial central do MindLog é seu sistema automático de sinalização por
 
 Essa lógica permite que o usuário identifique instantaneamente tarefas críticas sem necessidade de análise manual.
 
-🧠 Regras de Negócio:
+### 🧠 Regras de Negócio:
 
 1️⃣ Estrutura Geral
 
