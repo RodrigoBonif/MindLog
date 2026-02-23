@@ -105,3 +105,20 @@ Card sem prazo → borda verde.
 A cor não pode ser definida manualmente pelo usuário.
 
 O cálculo deve considerar a data atual do sistema.
+
+---
+
+📐 Arquitetura
+
+<img width="1685" height="606" alt="image" src="https://github.com/user-attachments/assets/a3d62933-7499-4031-99be-f46e9d367d84" />
+
+---
+
+🌐 Tecnologias
+
+### NodeJS
+- Express
+
+### ReactJS
+- Redux
+  - Redux Toolkit
