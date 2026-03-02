@@ -110,7 +110,7 @@ O cálculo deve considerar a data atual do sistema.
 
 📐 Arquitetura
 
-<img width="1685" height="606" alt="image" src="https://github.com/user-attachments/assets/a3d62933-7499-4031-99be-f46e9d367d84" />
+<img width="1736" height="585" alt="image" src="https://github.com/user-attachments/assets/433a6dab-ee16-4915-ba6a-92ed544b4890" />
 
 ---
 
@@ -122,3 +122,4 @@ O cálculo deve considerar a data atual do sistema.
 ### ReactJS
 - Redux
   - Redux Toolkit
+- Vite
