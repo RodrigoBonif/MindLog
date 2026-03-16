@@ -31,86 +31,166 @@ O diferencial central do MindLog é seu sistema automático de sinalização por
 
 Essa lógica permite que o usuário identifique instantaneamente tarefas críticas sem necessidade de análise manual.
 
-## 🧠 Regras de Negócio:
+## Requisitos 🧠
 
-1️⃣ Estrutura Geral
+### 1. Requisitos Funcionais (RF)
 
-Cada usuário deve possuir exatamente um board.
+Os requisitos funcionais descrevem as funcionalidades que o sistema deve oferecer aos usuários.
 
-Não deve ser possível criar múltiplos boards por usuário.
+•
+RF001: O sistema deve permitir a organização visual de tarefas.
 
-O board deve ser criado automaticamente no momento do cadastro.
+•
+RF002: O sistema deve permitir a priorização inteligente de tarefas.
 
-O usuário só pode acessar e manipular dados do seu próprio board.
+•
+RF003: O sistema deve transformar pensamentos, compromissos e responsabilidades em fluxos de trabalho claros e acionáveis.
 
-O board deve conter pelo menos uma coluna.
+•
+RF004: O sistema deve utilizar um sistema baseado em quadros e agrupamentos (Kanban-like).
 
-2️⃣ Colunas
+•
+RF005: O sistema deve permitir que usuários organizem suas tarefas em cards dinâmicos.
 
-Deve ser possível criar colunas dentro do board.
+•
+RF006: O sistema deve realizar a priorização automática de tarefas baseada em prazos.
 
-Deve ser possível editar o nome da coluna.
+•
+RF007: O sistema deve permitir a classificação de tarefas por níveis de urgência.
 
-Deve ser possível excluir colunas.
+•
+RF008: O sistema deve permitir interação dinâmica com cards e agrupamentos via drag-and-drop.
 
-Ao excluir uma coluna, seus cards devem ser:
+•
+RF009: O sistema deve permitir que o usuário identifique rapidamente tarefas críticas.
 
-movidos para outra coluna definida pelo usuário
-ou
+•
+RF010: O sistema deve possuir um sistema automático de sinalização por prazo, utilizando códigos visuais para indicar urgência.
 
-excluídos junto com a coluna (regra a ser definida).
+•
+RF011: O sistema deve exibir borda vermelha para cards com prazo inferior a 4 dias.
 
-Deve ser possível reordenar colunas.
+•
+RF012: O sistema deve exibir borda amarela para cards com prazo inferior a 7 dias.
 
-O nome da coluna não pode ser vazio.
+•
+RF013: O sistema deve exibir borda verde para cards com prazo superior a 7 dias ou sem prazo definido.
 
-Não deve ser permitido nome duplicado de coluna dentro do mesmo board (opcional, mas recomendado).
+•
+RF014: O sistema deve garantir que cada usuário possua exatamente um board.
 
-3️⃣ Cards
+•
+RF015: O sistema não deve permitir a criação de múltiplos boards por usuário.
 
-Deve ser possível criar cards dentro de uma coluna.
+•
+RF016: O sistema deve criar o board automaticamente no momento do cadastro do usuário.
 
-Todo card deve possuir título obrigatório.
+•
+RF017: O sistema deve permitir que o usuário acesse e manipule apenas os dados do seu próprio board.
 
-O card pode possuir descrição opcional.
+•
+RF018: O sistema deve garantir que o board contenha pelo menos um agrupamento de tarefas.
 
-O card pode possuir prazo opcional.
+•
+RF019: O sistema deve permitir a criação de agrupamentos de tarefas dentro do board.
 
-Não deve ser permitido definir prazo em data passada.
+•
+RF020: O sistema deve permitir a edição do nome do agrupamento de tarefas.
 
-O card pode possuir prioridade manual (baixa, média, alta).
+•
+RF021: O sistema deve permitir a exclusão de agrupamentos de tarefas.
 
-Deve ser possível editar as informações do card.
+•
+RF022: Ao excluir um agrupamento de tarefas, o sistema deve permitir que seus cards sejam movidos para outro agrupamento definido pelo usuário.
 
-Deve ser possível excluir cards.
+•
+RF023: Ao excluir um agrupamento de tarefas, o sistema deve permitir que seus cards sejam excluídos junto com o agrupamento (regra a ser definida).
 
-Deve ser possível mover cards entre colunas.
+•
+RF024: O sistema deve permitir a reordenação de agrupamentos de tarefas.
 
-Deve ser possível reordenar cards dentro da coluna.
+•
+RF025: O sistema deve garantir que o nome do agrupamento de tarefas não seja vazio.
 
-Não deve ser possível criar card sem coluna associada.
+•
+RF026: O sistema não deve permitir nome duplicado de agrupamento de tarefas dentro do mesmo board (opcional).
 
-4️⃣ Priorização Visual Automática
+•
+RF027: O sistema deve permitir a criação de cards dentro de um agrupamento de tarefas.
 
-A cor da borda do card deve ser definida automaticamente com base no prazo.
+•
+RF028: O sistema deve garantir que todo card possua título obrigatório.
 
-Prazo inferior a 4 dias → borda vermelha.
+•
+RF029: O sistema deve permitir que o card possua descrição opcional.
 
-Prazo inferior a 7 dias → borda amarela.
+•
+RF030: O sistema deve permitir que o card possua prazo opcional.
 
-Prazo superior a 7 dias → borda verde.
+•
+RF031: O sistema não deve permitir a definição de prazo em data passada.
 
-Card sem prazo → borda verde.
+•
+RF032: O sistema deve permitir que o card possua prioridade manual (baixa, média, alta).
 
-A cor não pode ser definida manualmente pelo usuário.
+•
+RF033: O sistema deve permitir a edição das informações do card.
 
-O cálculo deve considerar a data atual do sistema.
+•
+RF034: O sistema deve permitir a exclusão de cards.
+
+•
+RF035: O sistema deve permitir a movimentação de cards entre agrupamentos de tarefas.
+
+•
+RF036: O sistema deve permitir a reordenação de cards dentro do agrupamento de tarefas.
+
+•
+RF037: O sistema não deve permitir a criação de card sem agrupamento de tarefas associado.
+
+•
+RF038: O sistema deve definir automaticamente a cor da borda do card com base no prazo.
+
+•
+RF039: O sistema não deve permitir que a cor da borda seja definida manualmente pelo usuário.
+
+•
+RF040: O sistema deve considerar a data atual do sistema para o cálculo do prazo.
+
+### 2. Requisitos Não Funcionais (RNF)
+
+Os requisitos não funcionais descrevem as qualidades e restrições do sistema.
+
+•
+RNF001: O sistema deve oferecer uma organização visual intuitiva.
+
+•
+RNF002: O sistema deve possuir uma estrutura escalável para múltiplos quadros.
+
+•
+RNF003: O sistema deve combinar clareza visual com inteligência temporal.
+
+•
+RNF004: O sistema deve ser uma plataforma web.
+
+•
+RNF005: O sistema deve ser desenvolvido utilizando NodeJS (Express) para o backend.
+
+•
+RNF006: O sistema deve ser desenvolvido utilizando ReactJS (Redux, Redux Toolkit, Vite) para o frontend.
+
 
 ---
 
 📐 Arquitetura
 
 <img width="1805" height="620" alt="image" src="https://github.com/user-attachments/assets/e4b0526d-5499-4db6-aef9-ad9cf9b5e207" />
+
+<details><summary>Arquitetura modelo C4</summary>
+  
+[mindlog_architecture.pdf](https://github.com/user-attachments/files/26038607/mindlog_architecture.pdf)
+
+</details>
 
 ---
 
