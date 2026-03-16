@@ -110,7 +110,7 @@ O cálculo deve considerar a data atual do sistema.
 
 📐 Arquitetura
 
-<img width="1623" height="538" alt="image" src="https://github.com/user-attachments/assets/e29a8ac3-14e7-4bb4-abb2-d0b3718b4718" />
+<img width="1805" height="620" alt="image" src="https://github.com/user-attachments/assets/e4b0526d-5499-4db6-aef9-ad9cf9b5e207" />
 
 ---
 
