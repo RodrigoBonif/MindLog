@@ -38,147 +38,104 @@ Essa lógica permite que o usuário identifique instantaneamente tarefas crític
 Os requisitos funcionais descrevem as funcionalidades que o sistema deve oferecer aos usuários.
 
 •
-RF001: O sistema deve permitir a organização visual de tarefas.
+**RF001**: O sistema deve permitir a organização visual de tarefas.
 
 •
-RF002: O sistema deve permitir a priorização inteligente de tarefas.
+**RF002**: O sistema deve permitir a priorização inteligente de tarefas.
 
 •
-RF003: O sistema deve transformar pensamentos, compromissos e responsabilidades em fluxos de trabalho claros e acionáveis.
+**RF003**: O sistema deve transformar pensamentos, compromissos e responsabilidades em fluxos de trabalho claros e acionáveis.
 
 •
-RF004: O sistema deve utilizar um sistema baseado em quadros e agrupamentos (Kanban-like).
+**RF004**: O sistema deve utilizar um sistema baseado em quadros (Kanban-like).
 
 •
-RF005: O sistema deve permitir que usuários organizem suas tarefas em cards dinâmicos.
+**RF005**: O sistema deve permitir que usuários organizem suas tarefas em cards dinâmicos diretamente no board.
 
 •
-RF006: O sistema deve realizar a priorização automática de tarefas baseada em prazos.
+**RF006**: O sistema deve realizar a priorização automática de tarefas baseada em prazos.
 
 •
-RF007: O sistema deve permitir a classificação de tarefas por níveis de urgência.
+**RF007**: O sistema deve permitir a classificação de tarefas por níveis de urgência.
 
 •
-RF008: O sistema deve permitir interação dinâmica com cards e agrupamentos via drag-and-drop.
+**RF008**: O sistema deve permitir interação dinâmica com cards via drag-and-drop no board.
 
 •
-RF009: O sistema deve permitir que o usuário identifique rapidamente tarefas críticas.
+**RF009**: O sistema deve possuir um sistema automático de sinalização por prazo, utilizando códigos visuais para indicar urgência.
 
 •
-RF010: O sistema deve possuir um sistema automático de sinalização por prazo, utilizando códigos visuais para indicar urgência.
+**RF010**: O sistema deve exibir borda vermelha para cards com prazo inferior a 4 dias.
 
 •
-RF011: O sistema deve exibir borda vermelha para cards com prazo inferior a 4 dias.
+**RF011**: O sistema deve exibir borda amarela para cards com prazo inferior a 7 dias.
 
 •
-RF012: O sistema deve exibir borda amarela para cards com prazo inferior a 7 dias.
+**RF012**: O sistema deve exibir borda verde para cards com prazo superior a 7 dias ou sem prazo definido.
 
 •
-RF013: O sistema deve exibir borda verde para cards com prazo superior a 7 dias ou sem prazo definido.
+**RF013**: O sistema deve garantir que cada usuário possua exatamente um board.
 
 •
-RF014: O sistema deve garantir que cada usuário possua exatamente um board.
+**RF014**: O sistema não deve permitir a criação de múltiplos boards por usuário.
 
 •
-RF015: O sistema não deve permitir a criação de múltiplos boards por usuário.
+**RF015**: O sistema deve criar o board automaticamente no momento do cadastro do usuário.
 
 •
-RF016: O sistema deve criar o board automaticamente no momento do cadastro do usuário.
+**RF016**: O sistema deve permitir que o usuário acesse e manipule apenas os dados do seu próprio board.
 
 •
-RF017: O sistema deve permitir que o usuário acesse e manipule apenas os dados do seu próprio board.
+**RF017**: O sistema deve permitir a criação de cards no board.
 
 •
-RF018: O sistema deve garantir que o board contenha pelo menos um agrupamento de tarefas.
+**RF018**: O sistema deve garantir que todo card possua título obrigatório.
 
 •
-RF019: O sistema deve permitir a criação de agrupamentos de tarefas dentro do board.
+**RF019**: O sistema deve permitir que o card possua descrição opcional.
 
 •
-RF020: O sistema deve permitir a edição do nome do agrupamento de tarefas.
+**RF020**: O sistema deve permitir que o card possua prazo opcional.
 
 •
-RF021: O sistema deve permitir a exclusão de agrupamentos de tarefas.
+**RF021**: O sistema não deve permitir a definição de prazo em data passada.
 
 •
-RF022: Ao excluir um agrupamento de tarefas, o sistema deve permitir que seus cards sejam movidos para outro agrupamento definido pelo usuário.
+**RF022**: O sistema deve permitir que o card possua prioridade manual (baixa, média, alta).
 
 •
-RF023: Ao excluir um agrupamento de tarefas, o sistema deve permitir que seus cards sejam excluídos junto com o agrupamento (regra a ser definida).
+**RF023**: O sistema deve permitir a edição das informações do card.
 
 •
-RF024: O sistema deve permitir a reordenação de agrupamentos de tarefas.
+**RF024**: O sistema deve permitir a exclusão de cards.
 
 •
-RF025: O sistema deve garantir que o nome do agrupamento de tarefas não seja vazio.
+**RF025**: O sistema deve permitir a reordenação de cards no board.
 
 •
-RF026: O sistema não deve permitir nome duplicado de agrupamento de tarefas dentro do mesmo board (opcional).
+**RF026**: O sistema deve definir automaticamente a cor da borda do card com base no prazo.
 
 •
-RF027: O sistema deve permitir a criação de cards dentro de um agrupamento de tarefas.
+**RF027**: O sistema não deve permitir que a cor da borda seja definida manualmente pelo usuário.
 
 •
-RF028: O sistema deve garantir que todo card possua título obrigatório.
-
-•
-RF029: O sistema deve permitir que o card possua descrição opcional.
-
-•
-RF030: O sistema deve permitir que o card possua prazo opcional.
-
-•
-RF031: O sistema não deve permitir a definição de prazo em data passada.
-
-•
-RF032: O sistema deve permitir que o card possua prioridade manual (baixa, média, alta).
-
-•
-RF033: O sistema deve permitir a edição das informações do card.
-
-•
-RF034: O sistema deve permitir a exclusão de cards.
-
-•
-RF035: O sistema deve permitir a movimentação de cards entre agrupamentos de tarefas.
-
-•
-RF036: O sistema deve permitir a reordenação de cards dentro do agrupamento de tarefas.
-
-•
-RF037: O sistema não deve permitir a criação de card sem agrupamento de tarefas associado.
-
-•
-RF038: O sistema deve definir automaticamente a cor da borda do card com base no prazo.
-
-•
-RF039: O sistema não deve permitir que a cor da borda seja definida manualmente pelo usuário.
-
-•
-RF040: O sistema deve considerar a data atual do sistema para o cálculo do prazo.
+**RF028**: O sistema deve considerar a data atual do sistema para o cálculo do prazo.
 
 ### 2. Requisitos Não Funcionais (RNF)
 
 Os requisitos não funcionais descrevem as qualidades e restrições do sistema.
 
 •
-RNF001: O sistema deve oferecer uma organização visual intuitiva.
+**RNF001**: O sistema deve oferecer uma organização visual intuitiva.
 
 •
-RNF002: O sistema deve possuir uma estrutura escalável para múltiplos quadros.
+**RNF002**: O sistema deve combinar clareza visual com inteligência temporal.
 
 •
-RNF003: O sistema deve combinar clareza visual com inteligência temporal.
+**RNF003**: O sistema deve ser desenvolvido utilizando NodeJS (Express) para o backend.
 
 •
-RNF004: O sistema deve ser uma plataforma web.
-
-•
-RNF005: O sistema deve ser desenvolvido utilizando NodeJS (Express) para o backend.
-
-•
-RNF006: O sistema deve ser desenvolvido utilizando ReactJS (Redux, Redux Toolkit, Vite) para o frontend.
-
+**RNF004**: O sistema deve ser desenvolvido utilizando ReactJS (Redux, Redux Toolkit, Vite) para o frontend.
 
 ---
 
@@ -191,6 +148,12 @@ RNF006: O sistema deve ser desenvolvido utilizando ReactJS (Redux, Redux Toolkit
 [mindlog_architecture.pdf](https://github.com/user-attachments/files/26038607/mindlog_architecture.pdf)
 
 </details>
+
+---
+
+🧩 Protótipo
+
+https://www.figma.com/design/J7W4XXFzFYFiBmqjKjOMTJ/MindLog?node-id=1-10&p=f&t=cCEf3ftFuIQvlxJ6-0
 
 ---
 
