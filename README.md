@@ -141,7 +141,7 @@ Os requisitos não funcionais descrevem as qualidades e restrições do sistema.
 
 📐 Arquitetura
 
-<img width="1805" height="620" alt="image" src="https://github.com/user-attachments/assets/e4b0526d-5499-4db6-aef9-ad9cf9b5e207" />
+<img width="1509" height="522" alt="image" src="https://github.com/user-attachments/assets/79199b6e-2112-4ca8-8b59-331a073ca2a9" />
 
 <details><summary>Arquitetura modelo C4</summary>
   
@@ -156,11 +156,8 @@ Os requisitos não funcionais descrevem as qualidades e restrições do sistema.
 https://www.figma.com/design/J7W4XXFzFYFiBmqjKjOMTJ/MindLog?node-id=1-10&p=f&t=cCEf3ftFuIQvlxJ6-0
 
 ---
-<details><summary>Vídeo do projeto</summary>
-  
-https://github.com/user-attachments/assets/41782209-adb9-44b2-9bf0-a9e3926e8185
 
-</details>
+Link da Aplicação em produção: https://mind-oqf4uayon-rodrigobonifs-projects.vercel.app/
 
 ---
 
