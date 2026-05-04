@@ -1,0 +1,29 @@
+@import '../../styles/variables';
+
+.register {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 40px;
+
+  &__logo {
+    width: 140px;
+    margin: 0 auto 8px;
+    display: block;
+  }
+
+  &__back {
+    background: none;
+    border: none;
+    color: $text-muted;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    padding: 4px;
+    font-family: 'Inter', sans-serif;
+    transition: color 0.2s;
+
+    &:hover { color: $text; }
+  }
+}

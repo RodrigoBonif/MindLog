@@ -1,0 +1,11 @@
+@import '../../styles/variables';
+
+.priority-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: $radius-full;
+  &--alta  { color: $priority-alta;  background: rgba($priority-alta, 0.12); }
+  &--media { color: $priority-media; background: rgba($priority-media, 0.12); }
+  &--baixa { color: $priority-baixa; background: rgba($priority-baixa, 0.12); }
+}

@@ -1,0 +1,50 @@
+@import '../../styles/variables';
+
+.btn {
+  border: none;
+  padding: 12px 24px;
+  border-radius: $radius-full;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &--full {
+    width: 100%;
+  }
+
+  &--primary {
+    background: $primary;
+    color: white;
+    &:hover:not(:disabled) { background: $primary-hover; transform: translateY(-1px); }
+  }
+
+  &--secondary {
+    background: transparent;
+    color: $text;
+    border: 1px solid $border;
+    &:hover:not(:disabled) { border-color: $primary; color: $primary; }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: $text-muted;
+    &:hover:not(:disabled) { color: $text; background: rgba(255,255,255,0.05); }
+  }
+
+  &--danger {
+    background: $error;
+    color: white;
+    &:hover:not(:disabled) { opacity: 0.85; }
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}

@@ -1,0 +1,29 @@
+@import '../../styles/variables';
+
+.auth {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+
+  &__form {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $surface;
+    z-index: 2;
+  }
+
+  &__visual {
+    flex: 1;
+    background: url('../../assets/pattern.png') center/cover no-repeat;
+    background-color: #0d0f14;
+  }
+
+  &--login { flex-direction: row; }
+  &--register { flex-direction: row-reverse; }
+
+  @media (max-width: 768px) {
+    &__visual { display: none; }
+  }
+}
