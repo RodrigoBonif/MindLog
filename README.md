@@ -1,172 +1,191 @@
-# MindLog
-MindLog é uma plataforma web de organização visual e priorização inteligente de tarefas, projetada para transformar pensamentos, compromissos e responsabilidades em fluxos de trabalho claros e acionáveis.
+# MindLog — Full Stack
 
-Inspirado na dinâmica visual do Trello, o MindLog utiliza um sistema baseado em quadros e colunas (Kanban), permitindo que usuários organizem suas tarefas em cards dinâmicos, com foco em priorização temporal e gestão visual de urgência.
+Aplicação de anotações pessoais com autenticação JWT, construída com React + Node.js + PostgreSQL.
 
-## 🎯 Proposta do Projeto
-
-O objetivo do MindLog é ir além de um simples gerenciador de tarefas, oferecendo:
-
-Organização visual intuitiva
-
-Priorização automática baseada em prazos
-
-Classificação por níveis de urgência
-
-Interação dinâmica via drag-and-drop
-
-Estrutura escalável para múltiplos quadros
-
-A plataforma combina clareza visual com inteligência temporal, permitindo que o usuário identifique rapidamente quais tarefas exigem atenção imediata.
-
-## 🚨 Sistema Inteligente de Prioridade Visual
-
-O diferencial central do MindLog é seu sistema automático de sinalização por prazo, que utiliza códigos visuais para indicar urgência:
-
-🔴 Borda vermelha → Prazo inferior a 4 dias
-
-🟡 Borda amarela → Prazo inferior a 7 dias
-
-🟢 Borda verde → Prazo superior a 7 dias ou sem prazo definido
-
-Essa lógica permite que o usuário identifique instantaneamente tarefas críticas sem necessidade de análise manual.
-
-## Requisitos 🧠
-
-### 1. Requisitos Funcionais (RF)
-
-Os requisitos funcionais descrevem as funcionalidades que o sistema deve oferecer aos usuários.
-
-•
-**RF001**: O sistema deve permitir a organização visual de tarefas.
-
-•
-**RF002**: O sistema deve permitir a priorização inteligente de tarefas.
-
-•
-**RF003**: O sistema deve transformar pensamentos, compromissos e responsabilidades em fluxos de trabalho claros e acionáveis.
-
-•
-**RF004**: O sistema deve utilizar um sistema baseado em quadros (Kanban-like).
-
-•
-**RF005**: O sistema deve permitir que usuários organizem suas tarefas em cards dinâmicos diretamente no board.
-
-•
-**RF006**: O sistema deve realizar a priorização automática de tarefas baseada em prazos.
-
-•
-**RF007**: O sistema deve permitir a classificação de tarefas por níveis de urgência.
-
-•
-**RF008**: O sistema deve permitir interação dinâmica com cards via drag-and-drop no board.
-
-•
-**RF009**: O sistema deve possuir um sistema automático de sinalização por prazo, utilizando códigos visuais para indicar urgência.
-
-•
-**RF010**: O sistema deve exibir borda vermelha para cards com prazo inferior a 4 dias.
-
-•
-**RF011**: O sistema deve exibir borda amarela para cards com prazo inferior a 7 dias.
-
-•
-**RF012**: O sistema deve exibir borda verde para cards com prazo superior a 7 dias ou sem prazo definido.
-
-•
-**RF013**: O sistema deve garantir que cada usuário possua exatamente um board.
-
-•
-**RF014**: O sistema não deve permitir a criação de múltiplos boards por usuário.
-
-•
-**RF015**: O sistema deve criar o board automaticamente no momento do cadastro do usuário.
-
-•
-**RF016**: O sistema deve permitir que o usuário acesse e manipule apenas os dados do seu próprio board.
-
-•
-**RF017**: O sistema deve permitir a criação de cards no board.
-
-•
-**RF018**: O sistema deve garantir que todo card possua título obrigatório.
-
-•
-**RF019**: O sistema deve permitir que o card possua descrição opcional.
-
-•
-**RF020**: O sistema deve permitir que o card possua prazo opcional.
-
-•
-**RF021**: O sistema não deve permitir a definição de prazo em data passada.
-
-•
-**RF022**: O sistema deve permitir que o card possua prioridade manual (baixa, média, alta).
-
-•
-**RF023**: O sistema deve permitir a edição das informações do card.
-
-•
-**RF024**: O sistema deve permitir a exclusão de cards.
-
-•
-**RF025**: O sistema deve permitir a reordenação de cards no board.
-
-•
-**RF026**: O sistema deve definir automaticamente a cor da borda do card com base no prazo.
-
-•
-**RF027**: O sistema não deve permitir que a cor da borda seja definida manualmente pelo usuário.
-
-•
-**RF028**: O sistema deve considerar a data atual do sistema para o cálculo do prazo.
-
-### 2. Requisitos Não Funcionais (RNF)
-
-Os requisitos não funcionais descrevem as qualidades e restrições do sistema.
-
-•
-**RNF001**: O sistema deve oferecer uma organização visual intuitiva.
-
-•
-**RNF002**: O sistema deve combinar clareza visual com inteligência temporal.
-
-•
-**RNF003**: O sistema deve ser desenvolvido utilizando NodeJS (Express) para o backend.
-
-•
-**RNF004**: O sistema deve ser desenvolvido utilizando ReactJS (Redux, Redux Toolkit, Vite) para o frontend.
+```
+/project
+  /frontend   → React + Vite (porta 5173)
+  /backend    → Node.js + Express + Prisma + PostgreSQL (porta 3333)
+```
 
 ---
 
-📐 Arquitetura
+## Pré-requisitos
 
-<img width="1509" height="522" alt="image" src="https://github.com/user-attachments/assets/79199b6e-2112-4ca8-8b59-331a073ca2a9" />
-
-<details><summary>Arquitetura modelo C4</summary>
-  
-[mindlog_architecture.pdf](https://github.com/user-attachments/files/26038607/mindlog_architecture.pdf)
-
-</details>
+| Ferramenta   | Versão mínima |
+|-------------|---------------|
+| Node.js     | 18.x          |
+| npm         | 9.x           |
+| PostgreSQL  | 14.x          |
 
 ---
 
-🧩 Protótipo
+## 1. Banco de dados
 
-https://www.figma.com/design/J7W4XXFzFYFiBmqjKjOMTJ/MindLog?node-id=1-10&p=f&t=cCEf3ftFuIQvlxJ6-0
+Crie o banco antes de subir o backend:
+
+```sql
+CREATE DATABASE mindlog_db;
+```
 
 ---
 
-Link da Aplicação em produção: https://mind-oqf4uayon-rodrigobonifs-projects.vercel.app/
+## 2. Backend
+
+```bash
+cd backend
+
+# 1. Instalar dependências
+npm install
+
+# 2. Configurar variáveis de ambiente
+cp .env.example .env
+# Edite .env com suas credenciais do PostgreSQL e um JWT_SECRET forte
+
+# 3. Rodar migrations (cria as tabelas)
+npm run db:migrate
+
+# 4. (Opcional) Popular banco com dados de demo
+npm run db:seed
+
+# 5. Iniciar em modo desenvolvimento
+npm run dev
+```
+
+O servidor estará disponível em `http://localhost:3333`.
 
 ---
 
-🌐 Tecnologias
+## 3. Frontend
 
-### NodeJS
-- Express
+```bash
+cd frontend
 
-### ReactJS
-- Redux
-  - Redux Toolkit
-- Vite
+# 1. Instalar dependências
+npm install
+
+# 2. (Opcional) Configurar variável de ambiente
+cp .env.example .env
+# Por padrão já aponta para http://localhost:3333/api
+
+# 3. Iniciar em modo desenvolvimento
+npm run dev
+```
+
+O app estará disponível em `http://localhost:5173`.
+
+---
+
+## Endpoints da API
+
+### Auth — público
+
+| Método | Rota                  | Body                          | Descrição         |
+|--------|-----------------------|-------------------------------|-------------------|
+| POST   | `/api/auth/register`  | `{ login, nome, senha }`      | Criar conta       |
+| POST   | `/api/auth/login`     | `{ login, senha }`            | Login → JWT token |
+
+### Users — autenticado (Bearer token)
+
+| Método | Rota            | Body       | Descrição            |
+|--------|-----------------|------------|----------------------|
+| GET    | `/api/users/me` | —          | Perfil do usuário    |
+| PATCH  | `/api/users/me` | `{ nome }` | Atualizar nome       |
+
+### Cards — autenticado (Bearer token)
+
+| Método | Rota              | Body / Query                              | Descrição           |
+|--------|-------------------|-------------------------------------------|---------------------|
+| GET    | `/api/cards`      | `?search=texto&prioridade=Alta`           | Listar cards        |
+| POST   | `/api/cards`      | `{ titulo, descricao?, prioridade, prazo? }` | Criar card       |
+| GET    | `/api/cards/:id`  | —                                         | Buscar card por ID  |
+| PUT    | `/api/cards/:id`  | `{ titulo, descricao?, prioridade, prazo? }` | Substituir card  |
+| PATCH  | `/api/cards/:id`  | campos parciais                           | Atualizar card      |
+| DELETE | `/api/cards/:id`  | —                                         | Excluir card        |
+
+### Health check
+
+| Método | Rota           | Descrição              |
+|--------|----------------|------------------------|
+| GET    | `/api/health`  | Verifica se API está up |
+
+---
+
+## Estrutura do backend
+
+```
+backend/
+├── prisma/
+│   ├── schema.prisma          # Modelos User e Card
+│   └── migrations/            # SQL gerado pelo Prisma
+├── src/
+│   ├── config/
+│   │   ├── database.js        # Singleton do PrismaClient
+│   │   └── jwt.js             # Configuração do JWT
+│   ├── controllers/
+│   │   ├── auth.controller.js
+│   │   ├── card.controller.js
+│   │   └── user.controller.js
+│   ├── middlewares/
+│   │   ├── auth.middleware.js        # Verifica JWT
+│   │   ├── validate.middleware.js    # Valida body com Zod
+│   │   └── errorHandler.middleware.js
+│   ├── routes/
+│   │   ├── index.js
+│   │   ├── auth.routes.js
+│   │   ├── card.routes.js
+│   │   └── user.routes.js
+│   ├── services/
+│   │   ├── auth.service.js    # register / login
+│   │   ├── card.service.js    # CRUD de cards
+│   │   └── user.service.js    # perfil
+│   ├── validators/
+│   │   ├── auth.validator.js
+│   │   ├── card.validator.js
+│   │   └── user.validator.js
+│   ├── utils/
+│   │   ├── AppError.js        # Classe de erros operacionais
+│   │   └── seed.js            # Script de seed
+│   ├── app.js                 # Express + middlewares globais
+│   └── server.js              # Ponto de entrada
+└── .env.example
+```
+
+---
+
+## Variáveis de ambiente
+
+### Backend (`.env`)
+
+```env
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/mindlog_db"
+JWT_SECRET="segredo-forte-com-pelo-menos-32-caracteres"
+JWT_EXPIRES_IN="7d"
+PORT=3333
+NODE_ENV=development
+FRONTEND_URL="http://localhost:5173"
+```
+
+### Frontend (`.env`)
+
+```env
+VITE_API_URL=http://localhost:3333/api
+```
+
+---
+
+## Decisões de arquitetura
+
+**Separação em camadas:** cada responsabilidade tem sua camada — routes (roteamento) → controller (HTTP) → service (negócio) → prisma (dados). Isso facilita testes unitários por camada.
+
+**express-async-errors:** elimina a necessidade de `try/catch` em cada controller async — qualquer `throw` é automaticamente encaminhado ao errorHandler global.
+
+**Zod:** validação com tipagem estática. O middleware `validate()` substitui o body pelo dado já parseado, garantindo que controllers recebam dados limpos.
+
+**AppError:** distingue erros operacionais (previstos, com statusCode) de erros inesperados (bugs), que nunca expõem detalhes internos em produção.
+
+**bcryptjs:** senhas sempre armazenadas com hash — nunca em plain text.
+
+**JWT sem refresh token (MVP):** tokens de 7 dias. Para produção, considere adicionar refresh tokens com rotação.
+
+**Rate limiting duplo:** 200 req/15min para rotas gerais, 20 req/15min especificamente nas rotas de autenticação, prevenindo brute force.

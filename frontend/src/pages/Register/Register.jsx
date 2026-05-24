@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
 import { AuthLayout } from '../../components/AuthLayout/AuthLayout';
+import { register } from '../../services/auth';
 import mindlogLogo from '../../assets/mindlog.png';
 import './Register.scss';
 
@@ -10,23 +11,31 @@ export const Register = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ login: '', nome: '', senha: '' });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const newErrors = {};
     if (!form.login) newErrors.login = 'Campo obrigatório';
     if (!form.nome) newErrors.nome = 'Campo obrigatório';
     if (!form.senha || form.senha.length < 6) newErrors.senha = 'Mínimo 6 caracteres';
     if (Object.keys(newErrors).length) return setErrors(newErrors);
 
-    const users = JSON.parse(localStorage.getItem('ml_users') || '[]');
-    if (users.find(u => u.login === form.login)) {
-      return setErrors({ login: 'Login já existe' });
+    setLoading(true);
+    try {
+      await register({ login: form.login, nome: form.nome, senha: form.senha });
+      navigate('/');
+    } catch (err) {
+      // Backend returns "Login já está em uso" for duplicate logins
+      if (err.message?.toLowerCase().includes('login')) {
+        setErrors({ login: err.message });
+      } else {
+        setErrors({ senha: err.message || 'Erro ao criar conta' });
+      }
+    } finally {
+      setLoading(false);
     }
-
-    users.push(form);
-    localStorage.setItem('ml_users', JSON.stringify(users));
-    navigate('/');
   };
 
   return (
@@ -57,7 +66,9 @@ export const Register = () => {
           placeholder="••••••••"
         />
 
-        <Button type="submit" fullWidth>Registrar</Button>
+        <Button type="submit" fullWidth disabled={loading}>
+          {loading ? 'Criando conta...' : 'Registrar'}
+        </Button>
 
         <button type="button" className="register__back" onClick={() => navigate('/')}>
           ← Voltar para login

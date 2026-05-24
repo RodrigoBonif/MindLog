@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
 import { AuthLayout } from '../../components/AuthLayout/AuthLayout';
+import { login } from '../../services/auth';
 import mindlogLogo from '../../assets/mindlog.png';
 import './Login.scss';
 
@@ -10,21 +11,25 @@ export const Login = ({ onLogin }) => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ login: '', senha: '' });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const newErrors = {};
     if (!form.login) newErrors.login = 'Campo obrigatório';
     if (!form.senha) newErrors.senha = 'Campo obrigatório';
     if (Object.keys(newErrors).length) return setErrors(newErrors);
 
-    // Simulate auth
-    const users = JSON.parse(localStorage.getItem('ml_users') || '[]');
-    const user = users.find(u => u.login === form.login && u.senha === form.senha);
-    if (!user) return setErrors({ senha: 'Login ou senha incorretos' });
-
-    localStorage.setItem('ml_current_user', JSON.stringify(user));
-    onLogin(user);
+    setLoading(true);
+    try {
+      const user = await login({ login: form.login, senha: form.senha });
+      onLogin(user);
+    } catch (err) {
+      setErrors({ senha: err.message || 'Login ou senha incorretos' });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,7 +53,9 @@ export const Login = ({ onLogin }) => {
           placeholder="••••••••"
         />
 
-        <Button type="submit" fullWidth>Entrar</Button>
+        <Button type="submit" fullWidth disabled={loading}>
+          {loading ? 'Entrando...' : 'Entrar'}
+        </Button>
 
         <span className="divider">OU</span>
 
