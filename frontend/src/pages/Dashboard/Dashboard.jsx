@@ -13,6 +13,7 @@ export const Dashboard = ({ user, onLogout, onUserUpdate }) => {
   const [modal, setModal] = useState(null);
   const [filterOpen, setFilterOpen] = useState(false);
   const [filters, setFilters] = useState({ prioridade: null });
+  const [activeTab, setActiveTab] = useState('tarefas'); // 'tarefas' | 'concluidos'
   const [profileOpen, setProfileOpen] = useState(false);
   const [editLoginModal, setEditLoginModal] = useState(false);
   const [newName, setNewName] = useState(user.nome);
@@ -32,6 +33,8 @@ export const Dashboard = ({ user, onLogout, onUserUpdate }) => {
     }
   }, []);
 
+  // Busca inicial dos cards (efeito de sincronização com a API).
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { fetchCards(); }, [fetchCards]);
 
   // ── Card operations ────────────────────────────────────────────────────────
@@ -65,6 +68,20 @@ export const Dashboard = ({ user, onLogout, onUserUpdate }) => {
     }
   };
 
+  // ── Concluir / Reabrir card ────────────────────────────────────────────────
+  const handleToggleConcluido = async (card, concluido) => {
+    // Atualização otimista
+    setCards(prev => prev.map(c => c.id === card.id ? { ...c, concluido } : c));
+    try {
+      const updated = await updateCard(card.id, { concluido });
+      setCards(prev => prev.map(c => c.id === card.id ? updated : c));
+    } catch (err) {
+      // Reverte em caso de erro
+      setCards(prev => prev.map(c => c.id === card.id ? { ...c, concluido: !concluido } : c));
+      alert(err.message || 'Erro ao atualizar o card');
+    }
+  };
+
   // ── Profile update ─────────────────────────────────────────────────────────
   const handleSaveName = async () => {
     setSavingProfile(true);
@@ -79,9 +96,17 @@ export const Dashboard = ({ user, onLogout, onUserUpdate }) => {
     }
   };
 
-  // ── Client-side filter (search + priority) ─────────────────────────────────
+  // ── Contadores por aba ─────────────────────────────────────────────────────
+  const counts = useMemo(() => ({
+    tarefas: cards.filter(c => !c.concluido).length,
+    concluidos: cards.filter(c => c.concluido).length,
+  }), [cards]);
+
+  // ── Client-side filter (aba + search + priority) ───────────────────────────
   const filtered = useMemo(() => {
-    let result = cards;
+    const wantConcluido = activeTab === 'concluidos';
+    let result = cards.filter(c => !!c.concluido === wantConcluido);
+
     if (search.trim()) {
       const q = search.toLowerCase();
       result = result.filter(c =>
@@ -91,10 +116,11 @@ export const Dashboard = ({ user, onLogout, onUserUpdate }) => {
     }
     if (filters.prioridade) result = result.filter(c => c.prioridade === filters.prioridade);
     return result;
-  }, [cards, search, filters]);
+  }, [cards, activeTab, search, filters]);
 
   const clearFilters = () => setFilters({ prioridade: null });
   const hasFilters = !!filters.prioridade;
+  const isConcluidos = activeTab === 'concluidos';
 
   return (
     <div className="dashboard">
@@ -166,6 +192,34 @@ export const Dashboard = ({ user, onLogout, onUserUpdate }) => {
         </div>
       </div>
 
+      {/* Tabs */}
+      <div className="dashboard__tabs" role="tablist">
+        <button
+          role="tab"
+          aria-selected={!isConcluidos}
+          className={`dashboard__tab${!isConcluidos ? ' active' : ''}`}
+          onClick={() => setActiveTab('tarefas')}
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/>
+          </svg>
+          Tarefas
+          <span className="dashboard__tab-count">{counts.tarefas}</span>
+        </button>
+        <button
+          role="tab"
+          aria-selected={isConcluidos}
+          className={`dashboard__tab${isConcluidos ? ' active' : ''}`}
+          onClick={() => setActiveTab('concluidos')}
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          Concluídos
+          <span className="dashboard__tab-count">{counts.concluidos}</span>
+        </button>
+      </div>
+
       {/* Error banner */}
       {error && (
         <div style={{ padding: '12px 24px', color: '#ef4444', fontSize: 14 }}>
@@ -178,34 +232,83 @@ export const Dashboard = ({ user, onLogout, onUserUpdate }) => {
         {loading ? (
           <p style={{ color: 'rgba(255,255,255,0.4)', padding: 24 }}>Carregando...</p>
         ) : (
-          filtered.map(card => (
-            <div key={card.id} className="card" onClick={() => setModal(card)}>
-              <div className="card__hover-actions">
-                <button className="card__icon-btn" onClick={e => { e.stopPropagation(); setModal(card); }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                  </svg>
-                </button>
-                <button className="card__icon-btn card__icon-btn--delete" onClick={e => { e.stopPropagation(); handleDelete(card.id); }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
-                  </svg>
-                </button>
+          <>
+            {filtered.map(card => (
+              <div
+                key={card.id}
+                className={`card${card.concluido ? ' card--done' : ''}`}
+                onClick={() => setModal(card)}
+              >
+                <div className="card__hover-actions">
+                  {!card.concluido ? (
+                    <button
+                      className="card__icon-btn card__icon-btn--done"
+                      title="Marcar como concluído"
+                      onClick={e => { e.stopPropagation(); handleToggleConcluido(card, true); }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    </button>
+                  ) : (
+                    <button
+                      className="card__icon-btn card__icon-btn--reopen"
+                      title="Reabrir tarefa"
+                      onClick={e => { e.stopPropagation(); handleToggleConcluido(card, false); }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                      </svg>
+                    </button>
+                  )}
+                  <button className="card__icon-btn" onClick={e => { e.stopPropagation(); setModal(card); }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                    </svg>
+                  </button>
+                  <button className="card__icon-btn card__icon-btn--delete" onClick={e => { e.stopPropagation(); handleDelete(card.id); }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                    </svg>
+                  </button>
+                </div>
+                <h3 className="card__title">
+                  {card.concluido && (
+                    <span className="card__check" aria-hidden="true">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    </span>
+                  )}
+                  {card.titulo}
+                </h3>
+                <div className="card__footer">
+                  <PriorityBadge value={card.prioridade} />
+                  {card.prazo && <span className="card__date">{card.prazo}</span>}
+                </div>
               </div>
-              <h3 className="card__title">{card.titulo}</h3>
-              <div className="card__footer">
-                <PriorityBadge value={card.prioridade} />
-                {card.prazo && <span className="card__date">{card.prazo}</span>}
-              </div>
-            </div>
-          ))
-        )}
+            ))}
 
-        {/* Add card button */}
-        <button className="card card--add" onClick={() => setModal('create')}>
-          <span>+</span>
-        </button>
+            {/* Add card button — apenas na aba de tarefas */}
+            {!isConcluidos && (
+              <button className="card card--add" onClick={() => setModal('create')}>
+                <span>+</span>
+              </button>
+            )}
+
+            {/* Empty state da aba Concluídos */}
+            {isConcluidos && filtered.length === 0 && (
+              <div className="dashboard__empty">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                <p>Nenhuma tarefa concluída ainda.</p>
+                <span>Marque uma tarefa como concluída para vê-la aqui.</span>
+              </div>
+            )}
+          </>
+        )}
       </div>
 
       {/* Modals */}
@@ -217,6 +320,7 @@ export const Dashboard = ({ user, onLogout, onUserUpdate }) => {
           card={modal}
           onSave={handleSave}
           onDelete={handleDelete}
+          onToggleConcluido={handleToggleConcluido}
           onClose={() => setModal(null)}
         />
       )}

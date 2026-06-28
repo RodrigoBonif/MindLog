@@ -27,6 +27,7 @@ model Card {
   descricao  String?
   prioridade String    @default("Media")
   prazo      String?
+  concluido  Boolean   @default(false)
   userId     String    @map("user_id")
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @updatedAt @map("updated_at")
