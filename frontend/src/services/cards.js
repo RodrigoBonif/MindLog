@@ -1,10 +1,11 @@
 // src/services/cards.js
 import { api } from './api';
 
-export async function listCards({ search, prioridade } = {}) {
+export async function listCards({ search, prioridade, concluido } = {}) {
   const params = new URLSearchParams();
   if (search)     params.set('search', search);
   if (prioridade) params.set('prioridade', prioridade);
+  if (concluido !== undefined) params.set('concluido', String(concluido));
 
   const query = params.toString() ? `?${params}` : '';
   const res = await api.get(`/cards${query}`);

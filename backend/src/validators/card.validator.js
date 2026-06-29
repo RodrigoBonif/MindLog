@@ -16,6 +16,7 @@ const createCardSchema = z.object({
     .optional()
     .nullable()
     .or(z.literal('')),
+  concluido: z.boolean().optional(),
 });
 
 const updateCardSchema = createCardSchema.partial();

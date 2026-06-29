@@ -2,8 +2,18 @@
 const cardService = require('../services/card.service');
 
 async function index(req, res) {
-  const { search, prioridade } = req.query;
-  const cards = await cardService.listCards(req.user.id, { search, prioridade });
+  const { search, prioridade, concluido } = req.query;
+
+  // ?concluido=true | false → boolean; ausente → sem filtro (todos)
+  let concluidoFilter;
+  if (concluido === 'true') concluidoFilter = true;
+  else if (concluido === 'false') concluidoFilter = false;
+
+  const cards = await cardService.listCards(req.user.id, {
+    search,
+    prioridade,
+    concluido: concluidoFilter,
+  });
   return res.json({ status: 'success', data: { cards } });
 }
 

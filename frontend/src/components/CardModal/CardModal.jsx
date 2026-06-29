@@ -5,8 +5,9 @@ import './CardModal.scss';
 
 const PRIORITIES = ['Alta', 'Media', 'Baixa'];
 
-export const CardModal = ({ card, onSave, onDelete, onClose }) => {
+export const CardModal = ({ card, onSave, onDelete, onToggleConcluido, onClose }) => {
   const isEdit = !!card?.id;
+  const isConcluido = !!card?.concluido;
   const [form, setForm] = useState({
     titulo: '',
     descricao: '',
@@ -93,6 +94,14 @@ export const CardModal = ({ card, onSave, onDelete, onClose }) => {
           {isEdit && (
             <Button variant="danger" onClick={() => onDelete(card.id)}>
               Excluir card
+            </Button>
+          )}
+          {isEdit && onToggleConcluido && (
+            <Button
+              variant="secondary"
+              onClick={() => { onToggleConcluido(card, !isConcluido); onClose(); }}
+            >
+              {isConcluido ? 'Reabrir tarefa' : 'Marcar como concluído'}
             </Button>
           )}
           <Button onClick={handleSave}>

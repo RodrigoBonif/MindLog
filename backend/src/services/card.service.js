@@ -2,11 +2,27 @@
 const prisma = require('../config/database');
 const AppError = require('../utils/AppError');
 
-async function listCards(userId, { search, prioridade } = {}) {
+const cardSelect = {
+  id: true,
+  titulo: true,
+  descricao: true,
+  prioridade: true,
+  prazo: true,
+  concluido: true,
+  createdAt: true,
+  updatedAt: true,
+};
+
+async function listCards(userId, { search, prioridade, concluido } = {}) {
   const where = { userId };
 
   if (prioridade) {
     where.prioridade = prioridade;
+  }
+
+  // Filtra por status de conclusão quando informado (true/false).
+  if (typeof concluido === 'boolean') {
+    where.concluido = concluido;
   }
 
   if (search) {
@@ -19,30 +35,14 @@ async function listCards(userId, { search, prioridade } = {}) {
   return prisma.card.findMany({
     where,
     orderBy: { createdAt: 'desc' },
-    select: {
-      id: true,
-      titulo: true,
-      descricao: true,
-      prioridade: true,
-      prazo: true,
-      createdAt: true,
-      updatedAt: true,
-    },
+    select: cardSelect,
   });
 }
 
 async function getCard(id, userId) {
   const card = await prisma.card.findFirst({
     where: { id, userId },
-    select: {
-      id: true,
-      titulo: true,
-      descricao: true,
-      prioridade: true,
-      prazo: true,
-      createdAt: true,
-      updatedAt: true,
-    },
+    select: cardSelect,
   });
   if (!card) throw new AppError('Card não encontrado', 404);
   return card;
@@ -51,15 +51,7 @@ async function getCard(id, userId) {
 async function createCard(userId, data) {
   return prisma.card.create({
     data: { ...data, userId },
-    select: {
-      id: true,
-      titulo: true,
-      descricao: true,
-      prioridade: true,
-      prazo: true,
-      createdAt: true,
-      updatedAt: true,
-    },
+    select: cardSelect,
   });
 }
 
@@ -70,15 +62,7 @@ async function updateCard(id, userId, data) {
   return prisma.card.update({
     where: { id },
     data,
-    select: {
-      id: true,
-      titulo: true,
-      descricao: true,
-      prioridade: true,
-      prazo: true,
-      createdAt: true,
-      updatedAt: true,
-    },
+    select: cardSelect,
   });
 }
 

@@ -19,6 +19,7 @@ async function main() {
       { titulo: 'Estudar Node.js', descricao: 'Revisar streams e workers', prioridade: 'Alta', prazo: '30/06/2025', userId: user.id },
       { titulo: 'Fazer exercícios', descricao: 'Caminhada 30 min', prioridade: 'Media', prazo: '15/06/2025', userId: user.id },
       { titulo: 'Ler livro', descricao: 'Clean Architecture', prioridade: 'Baixa', userId: user.id },
+      { titulo: 'Configurar ambiente', descricao: 'Instalar dependências do projeto', prioridade: 'Media', concluido: true, userId: user.id },
     ],
     skipDuplicates: true,
   });
